@@ -37,10 +37,13 @@ float distancia = 0;
 int amplitud = 0;
 
 // --- Temporizadores Asíncronos ---
+// --- Temporizadores Asíncronos ---
 unsigned long ultimoEnvioRapido = 0;
 unsigned long ultimoEnvioLento = 0;
-const long intervaloRapido = 300;  // Actualización rápida para componentes interactivos (300ms)
-const long intervaloLento = 2000;   // Actualización adecuada para temperatura/JSON (2s)
+unsigned long ultimoDisparoCamara = 0; 
+const long intervaloRapido = 300;  
+const long intervaloLento = 2000;   
+const long cooldownCamara = 5000;      
 
 void setup_wifi() {
   delay(10);
@@ -120,6 +123,23 @@ void loop() {
     // Publicación inmediata de variables rápidas para que la UI responda al instante
     client.publish("smarthome/equipo06/distancia", String(distancia).c_str());
     client.publish("smarthome/equipo06/ruido", String(amplitud).c_str());
+
+    // ==========================================
+    // GATILLO AUTOMÁTICO DE LA CÁMARA
+    // ==========================================
+    // Si hay alguien a menos de 80 cm (y no es 0, que a veces es error de lectura del sensor)
+    if (distancia > 0 && distancia < 80) {
+      // Verificamos si ya pasaron los 5 segundos de enfriamiento
+      if (tiempoActual - ultimoDisparoCamara >= cooldownCamara) {
+        ultimoDisparoCamara = tiempoActual; // Reiniciamos el cronómetro de la cámara
+        
+        // Disparamos la orden a Node-RED
+        client.publish("smarthome/equipo06/trigger_automatico", "DISPARAR");
+        Serial.print("¡Persona detectada a ");
+        Serial.print(distancia);
+        Serial.println(" cm! Orden de foto enviada a Node-RED.");
+      }
+    }
   }
 
   // ==========================================
