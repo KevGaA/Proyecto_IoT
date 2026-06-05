@@ -758,34 +758,6 @@
         ]
     },
     {
-        "id": "e3124c2735397dfe",
-        "type": "ui_button",
-        "z": "f62a74adbda426b9",
-        "name": "",
-        "group": "9182aa977ffecebe",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Capturar Foto",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 780,
-        "y": 220,
-        "wires": [
-            [
-                "607080a73d463827"
-            ]
-        ]
-    },
-    {
         "id": "607080a73d463827",
         "type": "http request",
         "z": "f62a74adbda426b9",
@@ -801,8 +773,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 950,
-        "y": 220,
+        "x": 990,
+        "y": 320,
         "wires": [
             [
                 "3b1b9797d17e1f03"
@@ -845,6 +817,55 @@
         "wires": [
             [
                 "ddd98ef3fe58a774"
+            ]
+        ]
+    },
+    {
+        "id": "b4b2a6ce845088a9",
+        "type": "mqtt in",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "topic": "smarthome/equipo06/trigger_automatico",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "ecaf29400210a34a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "607080a73d463827"
+            ]
+        ]
+    },
+    {
+        "id": "e3124c2735397dfe",
+        "type": "ui_button",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "group": "9182aa977ffecebe",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Capturar Foto",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 780,
+        "y": 220,
+        "wires": [
+            [
+                "607080a73d463827"
             ]
         ]
     }
