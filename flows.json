@@ -32,7 +32,7 @@
         "diff": false,
         "className": "",
         "x": 590,
-        "y": 100,
+        "y": 80,
         "wires": []
     },
     {
@@ -60,7 +60,7 @@
         "diff": false,
         "className": "",
         "x": 580,
-        "y": 140,
+        "y": 120,
         "wires": []
     },
     {
@@ -73,11 +73,11 @@
         "width": "7",
         "height": "7",
         "gtype": "gage",
-        "title": "Gas",
-        "label": "units",
+        "title": "Distancia",
+        "label": "cm",
         "format": "{{value}}",
-        "min": 0,
-        "max": "1023",
+        "min": "0",
+        "max": "300",
         "colors": [
             "#00b500",
             "#e6e600",
@@ -87,8 +87,8 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 570,
-        "y": 180,
+        "x": 580,
+        "y": 160,
         "wires": []
     },
     {
@@ -270,7 +270,7 @@
         "templateScope": "local",
         "className": "",
         "x": 500,
-        "y": 60,
+        "y": 40,
         "wires": [
             []
         ]
@@ -310,7 +310,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 340,
-        "y": 100,
+        "y": 80,
         "wires": [
             [
                 "5e23051b96f1cb05"
@@ -331,7 +331,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 330,
-        "y": 140,
+        "y": 120,
         "wires": [
             [
                 "8669a1ab8874a7eb"
@@ -343,7 +343,7 @@
         "type": "mqtt in",
         "z": "8af42ff0faae0f39",
         "name": "",
-        "topic": "smarthome/equipo06/gas",
+        "topic": "smarthome/equipo06/distancia",
         "qos": "2",
         "datatype": "utf8",
         "broker": "ecaf29400210a34a",
@@ -351,8 +351,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 310,
-        "y": 180,
+        "x": 330,
+        "y": 160,
         "wires": [
             [
                 "fc14f6fdea778025"
@@ -373,38 +373,10 @@
         "rh": 0,
         "inputs": 0,
         "x": 310,
-        "y": 220,
+        "y": 200,
         "wires": [
             [
                 "c922811eb6b25b36"
-            ]
-        ]
-    },
-    {
-        "id": "5f369c8635e414a1",
-        "type": "inject",
-        "z": "8af42ff0faae0f39",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "2",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "28",
-        "payloadType": "num",
-        "x": 50,
-        "y": 300,
-        "wires": [
-            [
-                "4581a0b1fd2ad27b",
-                "556b433629e874d6",
-                "82409a721d181b87",
-                "e78c602d40458df9"
             ]
         ]
     },
@@ -427,26 +399,6 @@
         "wires": []
     },
     {
-        "id": "4581a0b1fd2ad27b",
-        "type": "function",
-        "z": "8af42ff0faae0f39",
-        "name": "simular temp",
-        "func": "msg.payload = Math.floor(Math.random() * (35 - 15 + 1)) + 15;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 300,
-        "wires": [
-            [
-                "98494e1b5647ae7f"
-            ]
-        ]
-    },
-    {
         "id": "5441e01fe4b30b11",
         "type": "mqtt out",
         "z": "8af42ff0faae0f39",
@@ -465,31 +417,11 @@
         "wires": []
     },
     {
-        "id": "556b433629e874d6",
-        "type": "function",
-        "z": "8af42ff0faae0f39",
-        "name": "simular humedad",
-        "func": "msg.payload = Math.floor(Math.random() * (35 - 15 + 1)) + 15;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 250,
-        "y": 340,
-        "wires": [
-            [
-                "5441e01fe4b30b11"
-            ]
-        ]
-    },
-    {
         "id": "65e55161047b1fdd",
         "type": "mqtt out",
         "z": "8af42ff0faae0f39",
         "name": "",
-        "topic": "smarthome/equipo06/gas",
+        "topic": "smarthome/equipo06/distancia",
         "qos": "",
         "retain": "",
         "respTopic": "",
@@ -498,29 +430,9 @@
         "correl": "",
         "expiry": "",
         "broker": "ecaf29400210a34a",
-        "x": 450,
+        "x": 470,
         "y": 380,
         "wires": []
-    },
-    {
-        "id": "82409a721d181b87",
-        "type": "function",
-        "z": "8af42ff0faae0f39",
-        "name": "simular gas",
-        "func": "msg.payload = Math.floor(Math.random() * (35 - 15 + 1)) + 15;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 380,
-        "wires": [
-            [
-                "65e55161047b1fdd"
-            ]
-        ]
     },
     {
         "id": "da69350589eedad4",
@@ -541,34 +453,14 @@
         "wires": []
     },
     {
-        "id": "e78c602d40458df9",
-        "type": "function",
-        "z": "8af42ff0faae0f39",
-        "name": "simular ruido",
-        "func": "msg.payload = Math.floor(Math.random() * (100 - 40 + 1)) + 40;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 420,
-        "wires": [
-            [
-                "da69350589eedad4"
-            ]
-        ]
-    },
-    {
         "id": "c922811eb6b25b36",
         "type": "ui_gauge",
         "z": "8af42ff0faae0f39",
         "name": "",
         "group": "6968ba1cbd4c2af3",
         "order": 4,
-        "width": "21",
-        "height": "4",
+        "width": "6",
+        "height": "5",
         "gtype": "donut",
         "title": "Nivel de Ruido",
         "label": "dB",
@@ -585,8 +477,107 @@
         "diff": false,
         "className": "",
         "x": 600,
-        "y": 220,
+        "y": 200,
         "wires": []
+    },
+    {
+        "id": "1b5ab573a25120f6",
+        "type": "mqtt in",
+        "z": "8af42ff0faae0f39",
+        "name": "",
+        "topic": "smarthome/equipo06/temp_objeto",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ecaf29400210a34a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "dd136719652585d5"
+            ]
+        ]
+    },
+    {
+        "id": "dd136719652585d5",
+        "type": "ui_gauge",
+        "z": "8af42ff0faae0f39",
+        "name": "",
+        "group": "6968ba1cbd4c2af3",
+        "order": 5,
+        "width": "7",
+        "height": "7",
+        "gtype": "gage",
+        "title": "Temp. Objeto",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 620,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "96f9a188bd240bf8",
+        "type": "mqtt out",
+        "z": "8af42ff0faae0f39",
+        "name": "",
+        "topic": "smathome/equipo06/temp_objeto",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ecaf29400210a34a",
+        "x": 480,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "98af1780aab19cd1",
+        "type": "function",
+        "z": "8af42ff0faae0f39",
+        "name": "function 1",
+        "func": "let topic = msg.topic;\nlet valorSensor = parseFloat(msg.payload);\nmsg.payload = valorSensor;\n\n// Creamos un arreglo para las 5 salidas (inicialmente vacías)\nlet salidas = [null, null, null, null, null];\n\n// Evaluamos el tópico para saber por cuál salida enviar el dato\nif (topic === \"smarthome/equipo06/temperatura\") {\n    salidas[0] = msg; // Envía por la Salida 1\n}\nelse if (topic === \"smarthome/equipo06/humedad\") {\n    salidas[1] = msg; // Envía por la Salida 2\n}\nelse if (topic === \"smarthome/equipo06/distancia\") {\n    salidas[2] = msg; // Envía por la Salida 3\n}\nelse if (topic === \"smarthome/equipo06/ruido\") {\n    salidas[3] = msg; // Envía por la Salida 4\n}\nelse if (topic === \"smarthome/equipo06/temp_objeto\") {\n    salidas[4] = msg; // Envía por la Salida 5\n}\n\n// Retornamos el arreglo de salidas\nreturn salidas;",
+        "outputs": 5,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "98494e1b5647ae7f"
+            ],
+            [
+                "5441e01fe4b30b11"
+            ],
+            [
+                "65e55161047b1fdd"
+            ],
+            [
+                "da69350589eedad4"
+            ],
+            [
+                "96f9a188bd240bf8"
+            ]
+        ]
     },
     {
         "id": "6968ba1cbd4c2af3",
@@ -680,7 +671,7 @@
         "hidden": false
     },
     {
-        "id": "c154058fd8e738cb",
+        "id": "43749d8e2fcf7398",
         "type": "global-config",
         "env": [],
         "modules": {
