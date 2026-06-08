@@ -30,7 +30,7 @@ const int micPin = 34;
 const int ventanaMuestreo = 50;
 const int ledPin = 2; // Pin del LED (el pin 2 suele ser el LED integrado de la placa)
 const int umbralRuido = 1500; // Valor 'x' a superar para encender el LED (Ajustable)
-const int ruidoElectricoFondo = 500; // Todo lo que esté por debajo de esto se considerará silencio
+const int ruidoElectricoFondo = 0; // Todo lo que esté por debajo de esto se considerará silencio
 
 // --- Variables Globales de Sensores ---
 float humedad = 0;
