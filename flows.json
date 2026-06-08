@@ -60,7 +60,7 @@
         "type": "ui_tab",
         "name": "Seguridad y camara",
         "icon": "dashboard",
-        "order": 2,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -69,7 +69,7 @@
         "type": "ui_tab",
         "name": "Control y alertas",
         "icon": "dashboard",
-        "order": 3,
+        "order": 4,
         "disabled": false,
         "hidden": false
     },
@@ -193,10 +193,10 @@
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
+            "name": "ProyectoIOTLUCKASYQUEBIN",
             "hideToolbar": "false",
             "allowSwipe": "false",
-            "lockMenu": "false",
+            "lockMenu": "true",
             "allowTempTheme": "true",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
@@ -210,6 +210,59 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "5191d8896f907a89",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\kevin\\Desktop\\Proyecto_IoT\\historial.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "0d8fe4135aec6746",
+        "type": "ui_tab",
+        "name": "Registro Historico",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f8e0cf0101ce174c",
+        "type": "ui_group",
+        "name": "Gráficos de Sensores",
+        "tab": "0d8fe4135aec6746",
+        "order": 1,
+        "disp": true,
+        "width": "21",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3474e3df0d64691d",
+        "type": "telegram bot",
+        "botname": "seguritoUtal_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbothost": "0.0.0.0",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
     },
     {
         "id": "5e23051b96f1cb05",
@@ -600,27 +653,6 @@
         ]
     },
     {
-        "id": "2ca593fcddcfaa54",
-        "type": "ui_text",
-        "z": "f62a74adbda426b9",
-        "group": "9182aa977ffecebe",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Movimiento",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 590,
-        "y": 200,
-        "wires": []
-    },
-    {
         "id": "ddd98ef3fe58a774",
         "type": "ui_text",
         "z": "f62a74adbda426b9",
@@ -645,8 +677,8 @@
         "id": "7a52a614af873ac6",
         "type": "ui_text",
         "z": "f62a74adbda426b9",
-        "group": "a6e91db68bb34dd1",
-        "order": 0,
+        "group": "",
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -658,8 +690,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 300,
-        "y": 440,
+        "x": 380,
+        "y": 220,
         "wires": []
     },
     {
@@ -669,8 +701,8 @@
         "name": "",
         "label": "Luz Manual",
         "tooltip": "",
-        "group": "a6e91db68bb34dd1",
-        "order": 1,
+        "group": "9182aa977ffecebe",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -678,20 +710,22 @@
         "topic": "topic",
         "topicType": "msg",
         "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
+        "onvalue": "255",
+        "onvalueType": "num",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
+        "offvalue": "0",
+        "offvalueType": "num",
         "officon": "",
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 290,
-        "y": 480,
+        "x": 790,
+        "y": 180,
         "wires": [
-            []
+            [
+                "987dc38084d754e0"
+            ]
         ]
     },
     {
@@ -700,7 +734,7 @@
         "z": "f62a74adbda426b9",
         "group": "9182aa977ffecebe",
         "name": "",
-        "order": 2,
+        "order": 3,
         "width": "20",
         "height": "9",
         "format": "<div style=\"display: flex; justify-content: center; width: 100%;\">\n    <img src=\"http://172.20.10.3:81/stream\" style=\"width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3);\">\n</div>",
@@ -709,8 +743,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 580,
-        "y": 280,
+        "x": 780,
+        "y": 260,
         "wires": [
             []
         ]
@@ -721,17 +755,17 @@
         "z": "f62a74adbda426b9",
         "group": "a6e91db68bb34dd1",
         "name": "",
-        "order": 5,
+        "order": 1,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    md-sidenav.md-sidenav-left {\n        background-color: #11111A !important;\n    }\n\n    md-sidenav md-list-item * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n\n    md-sidenav md-list-item:hover {\n        background-color: #2A2A35 !important;\n    }\n\n    md-toolbar:not(.md-menu-toolbar) {\n        background-color: #11111A !important;\n        box-shadow: none !important;\n    }\n\n    md-toolbar * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n</style>\n\n<div style=\"display: flex; justify-content: center; align-items: center; padding: 10px; width: 100%;\">\n    <div ng-if=\"!msg.payload\"\n        style=\"width: 100%; padding: 40px 0; text-align: center; color: #888; border: 2px dashed #ccc; border-radius: 8px;\">\n        Esperando captura de ESP32-CAM...\n    </div>\n\n    <img ng-if=\"msg.payload\" src=\"data:image/jpeg;base64,{{msg.payload}}\" style=\"width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3);\">\n</div>",
+        "format": "<style>\n    md-sidenav.md-sidenav-left {\n        background-color: #11111A !important;\n    }\n\n    md-sidenav md-list-item * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n\n    md-sidenav md-list-item:hover {\n        background-color: #2A2A35 !important;\n    }\n\n    md-toolbar:not(.md-menu-toolbar) {\n        background-color: #11111A !important;\n        box-shadow: none !important;\n    }\n\n    md-toolbar * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n</style>\n\n<div style=\"display: flex; justify-content: center; align-items: center; padding: 10px; width: 100%;\">\n    \n\n    <img ng-if=\"msg.payload\" src=\"data:image/jpeg;base64,{{msg.payload}}\" style=\"width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3);\">\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 280,
-        "y": 540,
+        "x": 340,
+        "y": 340,
         "wires": [
             []
         ]
@@ -742,7 +776,7 @@
         "z": "f62a74adbda426b9",
         "group": "9182aa977ffecebe",
         "name": "",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "format": "<style>\n    md-sidenav.md-sidenav-left {\n        background-color: #11111A !important;\n    }\n\n    md-sidenav md-list-item * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n\n    md-sidenav md-list-item:hover {\n        background-color: #2A2A35 !important;\n    }\n\n    md-toolbar:not(.md-menu-toolbar) {\n        background-color: #11111A !important;\n        box-shadow: none !important;\n    }\n\n    md-toolbar * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n</style>",
@@ -751,8 +785,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 580,
-        "y": 160,
+        "x": 560,
+        "y": 60,
         "wires": [
             []
         ]
@@ -866,6 +900,635 @@
         "wires": [
             [
                 "607080a73d463827"
+            ]
+        ]
+    },
+    {
+        "id": "5fb209b69f87623b",
+        "type": "inject",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE IF NOT EXISTS mediciones (timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, temperatura REAL, humedad REAL, ruido REAL);",
+        "x": 960,
+        "y": 520,
+        "wires": [
+            [
+                "7ebe5a5cf009f3dd"
+            ]
+        ]
+    },
+    {
+        "id": "7ebe5a5cf009f3dd",
+        "type": "sqlite",
+        "z": "f62a74adbda426b9",
+        "mydb": "5191d8896f907a89",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 1310,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f63fdb4907348dac",
+        "type": "mqtt in",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "topic": "smarthome/equipo06/datos_json",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ecaf29400210a34a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 580,
+        "wires": [
+            [
+                "8d18a078bff0e473"
+            ]
+        ]
+    },
+    {
+        "id": "8d18a078bff0e473",
+        "type": "json",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 580,
+        "wires": [
+            [
+                "0caedf1e4d181717",
+                "7fbdb3f38ef1cb4d"
+            ]
+        ]
+    },
+    {
+        "id": "0caedf1e4d181717",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "function 2",
+        "func": "// Aseguramos que el mensaje sea un objeto manipulable\nlet payload = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n\n// Extraemos los valores (si no vienen, ponemos 0)\nlet temp = payload.temperatura || 0;\nlet hum = payload.humedad || 0;\nlet ruido = payload.ruido || 0;\n\n// Preparamos la consulta SQL\nmsg.topic = `INSERT INTO mediciones (temperatura, humedad, ruido) VALUES (${temp}, ${hum}, ${ruido})`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 580,
+        "wires": [
+            [
+                "7ebe5a5cf009f3dd"
+            ]
+        ]
+    },
+    {
+        "id": "a4bff2336e1c13cd",
+        "type": "inject",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM (SELECT timestamp, temperatura, humedad, ruido FROM mediciones ORDER BY timestamp DESC LIMIT 200) ORDER BY timestamp ASC;",
+        "x": 500,
+        "y": 660,
+        "wires": [
+            [
+                "cfc2ec589e66f0f2"
+            ]
+        ]
+    },
+    {
+        "id": "cfc2ec589e66f0f2",
+        "type": "sqlite",
+        "z": "f62a74adbda426b9",
+        "mydb": "5191d8896f907a89",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 830,
+        "y": 660,
+        "wires": [
+            [
+                "f3a3b9c2ef3c61c7",
+                "e433dfafc1a7df46",
+                "bdbcb6b8ecd1455a"
+            ]
+        ]
+    },
+    {
+        "id": "ef4596aeec7e6a09",
+        "type": "ui_chart",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "group": "f8e0cf0101ce174c",
+        "order": 0,
+        "width": "21",
+        "height": "3",
+        "label": "Historial temperatura",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1420,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a7219f06cd340c49",
+        "type": "ui_chart",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "group": "f8e0cf0101ce174c",
+        "order": 0,
+        "width": "21",
+        "height": "3",
+        "label": "Historial humedad",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1410,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "03df9f052df887ce",
+        "type": "ui_chart",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "group": "f8e0cf0101ce174c",
+        "order": 0,
+        "width": "21",
+        "height": "3",
+        "label": "HIstorial ruido",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1400,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c21b33c9188a4791",
+        "type": "ui_template",
+        "z": "f62a74adbda426b9",
+        "group": "f8e0cf0101ce174c",
+        "name": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    md-sidenav.md-sidenav-left {\n        background-color: #11111A !important;\n    }\n\n    md-sidenav md-list-item * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n\n    md-sidenav md-list-item:hover {\n        background-color: #2A2A35 !important;\n    }\n\n    md-toolbar:not(.md-menu-toolbar) {\n        background-color: #11111A !important;\n        box-shadow: none !important;\n    }\n\n    md-toolbar * {\n        color: #FFFFFF !important;\n        fill: #FFFFFF !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 500,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c54b2128de0d50c3",
+        "type": "mqtt in",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "topic": "smarthome/equipo06/distancia",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ecaf29400210a34a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1010,
+        "y": 120,
+        "wires": [
+            [
+                "61b9b1cd0e68490d"
+            ]
+        ]
+    },
+    {
+        "id": "61b9b1cd0e68490d",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "function 4",
+        "func": "let distancia = parseFloat(msg.payload);\n\n// Si la distancia es menor a 80cm, consideramos que hay alguien moviéndose\nif (distancia > 0 && distancia < 80) {\n    msg.payload = \"SÍ (Movimiento Detectado)\";\n} else {\n    msg.payload = \"NO (Despejado)\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 120,
+        "wires": [
+            [
+                "5ec6fcb983972c20",
+                "4fe14f385f77ac39"
+            ]
+        ]
+    },
+    {
+        "id": "f131bfad3e4c0880",
+        "type": "mqtt in",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "topic": "smarthome/equipo06/alerta",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ecaf29400210a34a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "a33bd79191e81d08"
+            ]
+        ]
+    },
+    {
+        "id": "f3a3b9c2ef3c61c7",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "temp",
+        "func": "let data = [];\n\n// Extraer solo la temperatura\nmsg.payload.forEach(row => {\n    let time = new Date(row.timestamp + \"Z\").getTime();\n    if (row.temperatura !== null && row.temperatura !== undefined) {\n        data.push({x: time, y: row.temperatura});\n    }\n});\n\nmsg.payload = [{\n    \"series\": [\"Temperatura\"],\n    \"data\": [data],\n    \"labels\": [\"Temperatura\"]\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 660,
+        "wires": [
+            [
+                "ef4596aeec7e6a09"
+            ]
+        ]
+    },
+    {
+        "id": "e433dfafc1a7df46",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "hum",
+        "func": "let data = [];\n\n// Extraer solo la humedad\nmsg.payload.forEach(row => {\n    let time = new Date(row.timestamp + \"Z\").getTime();\n    if (row.humedad !== null && row.humedad !== undefined) {\n        data.push({ x: time, y: row.humedad });\n    }\n});\n\nmsg.payload = [{\n    \"series\": [\"Humedad\"],\n    \"data\": [data],\n    \"labels\": [\"Humedad\"]\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 700,
+        "wires": [
+            [
+                "a7219f06cd340c49"
+            ]
+        ]
+    },
+    {
+        "id": "bdbcb6b8ecd1455a",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "ruido",
+        "func": "let data = [];\n\n// Extraer solo el ruido\nmsg.payload.forEach(row => {\n    let time = new Date(row.timestamp + \"Z\").getTime();\n    if (row.ruido !== null && row.ruido !== undefined) {\n        data.push({ x: time, y: row.ruido });\n    }\n});\n\nmsg.payload = [{\n    \"series\": [\"Ruido\"],\n    \"data\": [data],\n    \"labels\": [\"Ruido\"]\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 740,
+        "wires": [
+            [
+                "03df9f052df887ce"
+            ]
+        ]
+    },
+    {
+        "id": "987dc38084d754e0",
+        "type": "http request",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://172.20.10.3/control?var=led_intensity&val={{{payload}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 950,
+        "y": 180,
+        "wires": [
+            [
+                "3b1b9797d17e1f03"
+            ]
+        ]
+    },
+    {
+        "id": "5ec6fcb983972c20",
+        "type": "ui_template",
+        "z": "f62a74adbda426b9",
+        "group": "9182aa977ffecebe",
+        "name": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"width: 100%; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; font-weight: bold; transition: all 0.3s ease; box-sizing: border-box; text-transform: uppercase;\"\n    ng-style=\"{'background-color': msg.payload.includes('SÍ') ? '#ff3333' : '#2A2A35', \n                'color': msg.payload.includes('SÍ') ? '#ffffff' : '#aaaaaa',\n                'border': msg.payload.includes('SÍ') ? '2px solid #cc0000' : '2px solid #444455',\n                'box-shadow': msg.payload.includes('SÍ') ? '0px 0px 15px rgba(255, 51, 51, 0.6)' : 'none'}\">\n    {{msg.payload || 'Esperando estado...'}}\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1400,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ca593fcddcfaa54",
+        "type": "ui_text",
+        "z": "f62a74adbda426b9",
+        "group": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Movimiento",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1410,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a33bd79191e81d08",
+        "type": "ui_template",
+        "z": "f62a74adbda426b9",
+        "group": "a6e91db68bb34dd1",
+        "name": "",
+        "order": 1,
+        "width": "10",
+        "height": "2",
+        "format": "<div style=\"width: 100%; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; font-weight: bold; transition: all 0.3s ease; box-sizing: border-box;\"\n     ng-style=\"{'background-color': msg.payload && msg.payload.includes('Presencia') ? '#ff3333' : '#2A2A35', \n                'color': msg.payload && msg.payload.includes('Presencia') ? '#ffffff' : '#aaaaaa',\n                'border': msg.payload && msg.payload.includes('Presencia') ? '2px solid #cc0000' : '2px solid #444455',\n                'box-shadow': msg.payload && msg.payload.includes('Presencia') ? '0px 0px 15px rgba(255, 51, 51, 0.6)' : 'none'}\">\n    {{msg.payload || 'Sin Alertas Críticas'}}\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 380,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "29992192166f9985",
+        "type": "telegram sender",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "bot": "3474e3df0d64691d",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7fbdb3f38ef1cb4d",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "Filtro de alertas",
+        "func": "// Aseguramos que el payload sea un objeto manipulable\nlet data = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n\n// --- 1. CONFIGURACIÓN DE UMBRALES ---\n// Define aquí qué consideras un dato \"crítico\"\nconst UMBRAL_TEMP = 30.0;     // Alerta si supera los 30°C\nconst UMBRAL_RUIDO = 1500;    // Alerta si el ruido supera 1500\nconst UMBRAL_DISTANCIA = 50;  // Alerta si hay un objeto/persona a menos de 80cm\n\n// --- 2. CONFIGURACIÓN ANTI-SPAM (COOLDOWN) ---\n// Define el tiempo de silencio obligatorio entre alertas del mismo tipo\nconst TIEMPO_ESPERA = 60000; // 60,000 milisegundos = 1 minuto entero\nconst miChatId = \"1007849868\"; // REEMPLAZA CON TU CHAT ID DE TELEGRAM\n\n// Recuperamos la memoria del nodo para saber cuándo fue la última alerta\n// Si es la primera vez que se ejecuta, iniciamos los tiempos en 0\nlet ultimaAlerta = context.get('ultimaAlerta') || {\n    temp: 0,\n    ruido: 0,\n    movimiento: 0\n};\n\nlet ahora = Date.now();\nlet alertasActivas = [];\n\n// --- 3. EVALUACIÓN DE REGLAS ---\n\n// Regla 1: Temperatura\nif (data.temperatura && data.temperatura > UMBRAL_TEMP) {\n    if (ahora - ultimaAlerta.temp > TIEMPO_ESPERA) {\n        alertasActivas.push(\"🔥 ALERTA: Temperatura crítica detectada (\" + data.temperatura + \"°C)\");\n        ultimaAlerta.temp = ahora; // Guardamos la hora de esta alerta\n    }\n}\n\n// Regla 2: Ruido\nif (data.ruido && data.ruido > UMBRAL_RUIDO) {\n    if (ahora - ultimaAlerta.ruido > TIEMPO_ESPERA) {\n        alertasActivas.push(\"🔊 ALERTA: Fuerte ruido detectado (\" + data.ruido + \")\");\n        ultimaAlerta.ruido = ahora;\n    }\n}\n\n// Regla 3: Intrusión (Distancia)\nif (data.distancia && data.distancia > 0 && data.distancia < UMBRAL_DISTANCIA) {\n    if (ahora - ultimaAlerta.movimiento > TIEMPO_ESPERA) {\n        alertasActivas.push(\"🚶 ALERTA: Posible intruso a \" + data.distancia + \" cm\");\n        ultimaAlerta.movimiento = ahora;\n    }\n}\n\n// --- 4. GUARDAR MEMORIA Y ENVIAR ---\n\n// Guardamos los tiempos actualizados en la memoria interna del nodo\ncontext.set('ultimaAlerta', ultimaAlerta);\n\n// Si se rompió algún umbral y pasó el tiempo de espera, enviamos el mensaje\nif (alertasActivas.length > 0) {\n\n    // 1. Preparamos el mensaje con el formato exacto para Telegram\n    let msgTelegram = {\n        payload: {\n            chatId: miChatId,\n            type: \"message\",\n            content: \"⚠️ *REPORTE DE EVENTOS:*\\n\\n\" + alertasActivas.join(\"\\n\")\n        }\n    };\n\n    // 2. Preparamos un mensaje de texto simple para el Dashboard\n    let msgDashboard = {\n        payload: alertasActivas.join(\" | \") // Usamos \" | \" para separar múltiples alertas en una misma línea\n    };\n\n    // Retornamos un arreglo: El primer elemento va por la Salida 1 (Telegram)\n    // El segundo elemento va por la Salida 2 (Dashboard)\n    return [msgTelegram, msgDashboard];\n\n} else {\n    // Si no hay alertas nuevas, no enviamos nada por ninguna salida\n    return [null, null];\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "29992192166f9985"
+            ],
+            [
+                "ea8bcac8079dc8ea"
+            ]
+        ]
+    },
+    {
+        "id": "4fe14f385f77ac39",
+        "type": "ui_template",
+        "z": "f62a74adbda426b9",
+        "group": "a6e91db68bb34dd1",
+        "name": "",
+        "order": 6,
+        "width": "10",
+        "height": "2",
+        "format": "<div style=\"width: 100%; padding: 15px; border-radius: 8px; text-align: center; font-size: 18px; font-weight: bold; transition: all 0.3s ease; box-sizing: border-box; text-transform: uppercase;\"\n    ng-style=\"{'background-color': msg.payload.includes('SÍ') ? '#ff3333' : '#2A2A35', \n                'color': msg.payload.includes('SÍ') ? '#ffffff' : '#aaaaaa',\n                'border': msg.payload.includes('SÍ') ? '2px solid #cc0000' : '2px solid #444455',\n                'box-shadow': msg.payload.includes('SÍ') ? '0px 0px 15px rgba(255, 51, 51, 0.6)' : 'none'}\">\n    {{msg.payload || 'Esperando estado...'}}\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1400,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "498ade47e790572e",
+        "type": "ui_button",
+        "z": "f62a74adbda426b9",
+        "name": "",
+        "group": "a6e91db68bb34dd1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Alerta Manual",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "¡ALERTA MANUAL ACTIVADA DESDE EL DASHBOARD!",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "5cfc8915148d71e3"
+            ]
+        ]
+    },
+    {
+        "id": "ea8bcac8079dc8ea",
+        "type": "ui_text",
+        "z": "f62a74adbda426b9",
+        "group": "a6e91db68bb34dd1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Último evento",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 780,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5cfc8915148d71e3",
+        "type": "function",
+        "z": "f62a74adbda426b9",
+        "name": "alerta manual",
+        "func": "const miChatId = \"1007849868\";\n\n// Capturamos la hora local exacta\nlet fecha = new Date().toLocaleString(\"es-CL\", { timeZone: \"America/Santiago\" });\n\n// Construimos el mensaje de prueba cumpliendo la rúbrica\nlet textoAlerta = \"🚨 *SIMULACRO DE SISTEMA* 🚨\\n\\n\" +\n    \"Evento: Disparo manual desde Dashboard\\n\" +\n    \"Valor: Botón de Pánico\\n\" +\n    \"Timestamp: \" + fecha;\n\n// Formateamos el paquete exactamente como lo exige el nodo de Telegram\nmsg.payload = {\n    chatId: miChatId,\n    type: \"message\",\n    content: textoAlerta\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 460,
+        "wires": [
+            [
+                "29992192166f9985",
+                "ea8bcac8079dc8ea"
             ]
         ]
     }
