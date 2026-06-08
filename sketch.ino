@@ -25,9 +25,12 @@ const int echoPin = 18;
 // --- Configuración GY-906 ---
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
-// --- Configuración MAX4466 ---
+// --- Configuración MAX4466 y LED ---
 const int micPin = 34;
 const int ventanaMuestreo = 50;
+const int ledPin = 2; // Pin del LED (el pin 2 suele ser el LED integrado de la placa)
+const int umbralRuido = 1500; // Valor 'x' a superar para encender el LED (Ajustable)
+const int ruidoElectricoFondo = 0; // Todo lo que esté por debajo de esto se considerará silencio
 
 // --- Variables Globales de Sensores ---
 float humedad = 0;
@@ -36,7 +39,6 @@ float tempObjeto = 0;
 float distancia = 0;
 int amplitud = 0;
 
-// --- Temporizadores Asíncronos ---
 // --- Temporizadores Asíncronos ---
 unsigned long ultimoEnvioRapido = 0;
 unsigned long ultimoEnvioLento = 0;
@@ -77,6 +79,10 @@ void setup() {
   dht.begin();
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  
+  // LED
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
 
   if (!mlx.begin()) {
     Serial.println("Error conectando con GY-906!");
@@ -118,22 +124,32 @@ void loop() {
         if (lectura < minimo) minimo = lectura;
       }
     }
-    amplitud = maximo - minimo;
+    
+    // Cálculo de amplitud con filtro de ruido eléctrico
+    int amplitudCruda = maximo - minimo;
+    if (amplitudCruda < ruidoElectricoFondo) {
+      amplitud = 0; // Silencio absoluto
+    } else {
+      amplitud = amplitudCruda; // Sonido real detectado
+    }
 
-    // Publicación inmediata de variables rápidas para que la UI responda al instante
+    // --- LÓGICA DEL ACTUADOR (LED) ---
+    if (amplitud > umbralRuido) {
+      digitalWrite(ledPin, HIGH); // Enciende el LED si hay ruido fuerte
+    } else {
+      digitalWrite(ledPin, LOW);  // Lo apaga si el ruido baja
+    }
+
+    // Publicación inmediata de variables rápidas
     client.publish("smarthome/equipo06/distancia", String(distancia).c_str());
     client.publish("smarthome/equipo06/ruido", String(amplitud).c_str());
 
     // ==========================================
     // GATILLO AUTOMÁTICO DE LA CÁMARA
     // ==========================================
-    // Si hay alguien a menos de 80 cm (y no es 0, que a veces es error de lectura del sensor)
     if (distancia > 0 && distancia < 80) {
-      // Verificamos si ya pasaron los 5 segundos de enfriamiento
       if (tiempoActual - ultimoDisparoCamara >= cooldownCamara) {
-        ultimoDisparoCamara = tiempoActual; // Reiniciamos el cronómetro de la cámara
-        
-        // Disparamos la orden a Node-RED
+        ultimoDisparoCamara = tiempoActual; 
         client.publish("smarthome/equipo06/trigger_automatico", "DISPARAR");
         Serial.print("¡Persona detectada a ");
         Serial.print(distancia);
@@ -148,12 +164,10 @@ void loop() {
   if (tiempoActual - ultimoEnvioLento >= intervaloLento) {
     ultimoEnvioLento = tiempoActual;
 
-    // Lecturas de Temperatura y Humedad
     humedad = dht.readHumidity();
     tempAmbiente = dht.readTemperature();
     tempObjeto = mlx.readObjectTempC();
 
-    // Publicación de tópicos individuales de temperatura
     if (!isnan(humedad) && !isnan(tempAmbiente)) {
       client.publish("smarthome/equipo06/temperatura", String(tempAmbiente).c_str());
       client.publish("smarthome/equipo06/humedad", String(humedad).c_str());
@@ -162,7 +176,6 @@ void loop() {
       client.publish("smarthome/equipo06/temp_objeto", String(tempObjeto).c_str());
     }
 
-    // Estructuración del paquete JSON global exigido por la rúbrica del proyecto
     StaticJsonDocument<256> doc;
     doc["equipo"] = "equipo06";
     if (!isnan(tempAmbiente)) doc["temperatura"] = tempAmbiente;
