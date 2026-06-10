@@ -3,14 +3,14 @@ import cv2
 import numpy as np
 import face_recognition
 
-# 1. Configuración de Red (Apuntando a la IP de tu computador)
+# RED MQTT (Mosquitto en Docker)
 BROKER = "172.20.10.5" 
 PORT = 1883
 TOPIC_IMAGEN = "smarthome/equipo06/camara/evento"
 TOPIC_RESULTADO = "smarthome/equipo06/camara/resultado"
 TOPIC_ALERTA = "smarthome/equipo06/alerta"
 
-# 2. Carga de Base de Datos Facial (Rutas relativas)
+# BASE DE DATOS DE ROSTROS CONOCIDOS
 print("Inicializando motor de visión artificial...")
 try:
     img_kevin = face_recognition.load_image_file("fotos/Kevin.jpeg")
@@ -25,37 +25,35 @@ try:
 except Exception as e:
     print("Error crítico al cargar las imágenes. Verifica que la carpeta 'fotos' exista y los nombres coincidan:", e)
 
-# 3. Funciones del Broker MQTT
+# FUNCIOONES DEL BROKER
 def on_connect(client, userdata, flags, rc):
     print("Conexión establecida con Mosquitto (Docker). Escuchando el canal de eventos...")
     client.subscribe(TOPIC_IMAGEN)
 
 def on_message(client, userdata, msg):
     print("\n[NUEVO EVENTO] Frame binario recibido. Iniciando inferencia...")
-    print(f"-> Tamaño del archivo recibido: {len(msg.payload)} bytes") # ¡AGREGA ESTA LÍNEA!
+    print(f"-> Tamaño del archivo recibido: {len(msg.payload)} bytes") 
     
-    # Si el archivo pesa menos de 100 bytes, probablemente sea un mensaje de error en texto
     if len(msg.payload) < 100:
         print(f"-> Contenido sospechoso: {msg.payload}")
 
     try:
-        # Decodificación del buffer en memoria
         nparr = np.frombuffer(msg.payload, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         if img is None:
             print("Error: Fallo de integridad en el buffer de la imagen.")
             return
 
-        # Conversión de espacio de color BGR a RGB para la IA
+        
         rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         
-        # Extracción de características
+        # EXTRACIÓN DE ROSTROS Y ENCODINGS
         face_locations = face_recognition.face_locations(rgb_img)
         face_encodings = face_recognition.face_encodings(rgb_img, face_locations)
         
         resultado = "Desconocido / Sin Persona"
         
-        # Búsqueda de coincidencias
+        # BUSCA DE COINCIDENCIAS CON LA BASE DE DATOS
         for face_encoding in face_encodings:
             matches = face_recognition.compare_faces(rostros_conocidos, face_encoding, tolerance=0.5)
             if True in matches:
@@ -65,17 +63,17 @@ def on_message(client, userdata, msg):
         
         print(f"Identidad resuelta: {resultado}. Publicando resultado...")
         
-        # Transmisión de respuesta a Node-RED
+        # TRANSMISIÓN DEL RESULTADO AL BROKER
         client.publish(TOPIC_RESULTADO, resultado)
         
-        # Disparo de alerta si se detecta a alguien conocido
+        # TIRA LA ALERTA SI SE CONFIRMA PRESENCIA DE UNA PERSONA CONOCIDA
         if resultado != "Desconocido / Sin Persona":
             client.publish(TOPIC_ALERTA, f"Presencia confirmada: {resultado}")
 
     except Exception as e:
         print(f"Excepción controlada durante el análisis: {e}")
 
-# 4. Arranque del Servicio
+# ARRANQUE
 cliente = mqtt.Client()
 cliente.on_connect = on_connect
 cliente.on_message = on_message
