@@ -5,7 +5,7 @@
 #include "DHT.h"
 #include <ArduinoJson.h>
 
-// --- Configuración WiFi y MQTT ---
+// RED WiFi y MQTT
 const char* ssid = "iPhone de Lucas";          
 const char* password = "12345678";  
 const char* mqtt_server = "172.20.10.5"; 
@@ -13,33 +13,33 @@ const char* mqtt_server = "172.20.10.5";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// --- Configuración DHT11 ---
+// CONF DHT11
 #define DHTPIN 4
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-// --- Configuración HC-SR04 ---
+// CONF HC-SR04
 const int trigPin = 5;
 const int echoPin = 18;
 
-// --- Configuración GY-906 ---
+// CONF GY906
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
-// --- Configuración MAX4466 y LED ---
+// CONF MAX4466
 const int micPin = 34;
 const int ventanaMuestreo = 50;
-const int ledPin = 2; // Pin del LED (el pin 2 suele ser el LED integrado de la placa)
-const int umbralRuido = 1500; // Valor 'x' a superar para encender el LED (Ajustable)
-const int ruidoElectricoFondo = 0; // Todo lo que esté por debajo de esto se considerará silencio
+const int ledPin = 2; 
+const int umbralRuido = 1500; 
+const int ruidoElectricoFondo = 0; 
 
-// --- Variables Globales de Sensores ---
+//GLOBALES
 float humedad = 0;
 float tempAmbiente = 0;
 float tempObjeto = 0;
 float distancia = 0;
 int amplitud = 0;
 
-// --- Temporizadores Asíncronos ---
+// TEMPORIZADORES
 unsigned long ultimoEnvioRapido = 0;
 unsigned long ultimoEnvioLento = 0;
 unsigned long ultimoDisparoCamara = 0; 
@@ -55,7 +55,7 @@ void setup_wifi() {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi conectado.");
+  Serial.println("\nWiFi conectado");
 }
 
 void reconnect() {
@@ -98,13 +98,11 @@ void loop() {
 
   unsigned long tiempoActual = millis();
 
-  // ==========================================
-  // 1. TAREAS RÁPIDAS (Distancia y Ruido) - Cada 300ms
-  // ==========================================
+  // DISTANCIA Y RUIDO
   if (tiempoActual - ultimoEnvioRapido >= intervaloRapido) {
     ultimoEnvioRapido = tiempoActual;
 
-    // Lectura HC-SR04 (Distancia)
+    // LEE HC-SR04
     digitalWrite(trigPin, LOW);
     delayMicroseconds(2);
     digitalWrite(trigPin, HIGH);
@@ -113,7 +111,7 @@ void loop() {
     long duracion = pulseIn(echoPin, HIGH);
     distancia = (duracion * 0.0343) / 2;
 
-    // Lectura MAX4466 (Ruido)
+    // LEE MAX4466 con filtro de ruido eléctrico
     unsigned long inicioMic = millis();
     int maximo = 0;
     int minimo = 4095;
@@ -125,28 +123,26 @@ void loop() {
       }
     }
     
-    // Cálculo de amplitud con filtro de ruido eléctrico
+    // CALCULO DE AMPLITUD CON FILTRO DE RUIDO
     int amplitudCruda = maximo - minimo;
     if (amplitudCruda < ruidoElectricoFondo) {
-      amplitud = 0; // Silencio absoluto
+      amplitud = 0; 
     } else {
-      amplitud = amplitudCruda; // Sonido real detectado
+      amplitud = amplitudCruda; 
     }
 
-    // --- LÓGICA DEL ACTUADOR (LED) ---
+    // ACTUADOR LED
     if (amplitud > umbralRuido) {
-      digitalWrite(ledPin, HIGH); // Enciende el LED si hay ruido fuerte
+      digitalWrite(ledPin, HIGH); 
     } else {
-      digitalWrite(ledPin, LOW);  // Lo apaga si el ruido baja
+      digitalWrite(ledPin, LOW);  
     }
 
-    // Publicación inmediata de variables rápidas
+  
     client.publish("smarthome/equipo06/distancia", String(distancia).c_str());
     client.publish("smarthome/equipo06/ruido", String(amplitud).c_str());
 
-    // ==========================================
-    // GATILLO AUTOMÁTICO DE LA CÁMARA
-    // ==========================================
+    // TRIGGER DE CÁMARA SI SE DETECTA MOVIMIENTO CERCA
     if (distancia > 0 && distancia < 80) {
       if (tiempoActual - ultimoDisparoCamara >= cooldownCamara) {
         ultimoDisparoCamara = tiempoActual; 
@@ -158,9 +154,7 @@ void loop() {
     }
   }
 
-  // ==========================================
-  // 2. TAREAS LENTAS (Temperaturas e Informe JSON) - Cada 2000ms
-  // ==========================================
+  // TEMPERATURA Y AMBIENTE
   if (tiempoActual - ultimoEnvioLento >= intervaloLento) {
     ultimoEnvioLento = tiempoActual;
 
